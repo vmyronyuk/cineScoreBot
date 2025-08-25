@@ -1,5 +1,6 @@
 import { Context, Markup } from 'telegraf'
 import { TMDB_API_KEY } from '../../bot'
+import { saveMovie } from '../../services/moviesService'
 import { TMDBMovie } from '../../types/movies'
 import { replyHTML } from '../../utils/replyHTML'
 
@@ -53,6 +54,8 @@ export async function randomCommandHandler(ctx: Context) {
 				]).reply_markup,
 			})
 		}
+
+		await saveMovie(randomMovie)
 	} catch (error) {
 		console.error(error)
 		ctx.reply('Сталася помилка при отриманні випадкового фільму ⚠️ ')

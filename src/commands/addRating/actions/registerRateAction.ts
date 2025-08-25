@@ -1,6 +1,7 @@
 import { Context, Telegraf } from 'telegraf'
 import { Update } from 'telegraf/typings/core/types/typegram'
 import { supabase } from '../../../config/supabase'
+import { saveMovie } from '../../../services/moviesService'
 import { TMDBMovie } from '../../../types/movies'
 
 export function registerRateAction(bot: Telegraf<Context<Update>>) {
@@ -23,19 +24,7 @@ export function registerRateAction(bot: Telegraf<Context<Update>>) {
 
 				const tmdbMovie = (await res.json()) as TMDBMovie
 
-				const { data: newMovie, error: insertError } = await supabase
-					.from('movies')
-					.insert({
-						tmdbId: tmdbMovie.id,
-						title: tmdbMovie.title,
-						overview: tmdbMovie.overview,
-						releaseDate: tmdbMovie.release_date,
-						posterUrl: tmdbMovie.poster_path,
-					})
-					.select('*')
-					.single()
-
-				if (insertError) throw insertError
+				const newMovie = await saveMovie(tmdbMovie)
 				movie = newMovie
 			}
 
