@@ -1,6 +1,7 @@
 import { Context, Markup } from 'telegraf'
 import { supabase } from '../../config/supabase'
 import { getMovieByTitle } from '../../services/moviesService'
+import { createUserIfNotExist } from '../../services/userService'
 import { TMDBMovie } from '../../types/movies'
 import { getTextFromMessage } from '../../utils/getTextFromMessage'
 import { releaseDateToYear } from '../../utils/releaseDateToYear'
@@ -14,6 +15,14 @@ export async function addRatingCommandHandler(ctx: Context) {
 		if (!message) return
 
 		const userId = ctx.from?.id
+
+		if (!userId) return
+
+		await createUserIfNotExist(
+			userId,
+			ctx.from?.username!,
+			ctx.from?.first_name!
+		)
 
 		const args = message.split(' ').slice(1)
 		if (args.length < 2) {
@@ -41,7 +50,9 @@ export async function addRatingCommandHandler(ctx: Context) {
 
 			return await replyHTML(
 				ctx,
-				`<strong>✅ Рейтинг ${rating} збережено для "${movieDb.title} (${movieDb.releaseDate})"</strong>`
+				`<strong>✅ Рейтинг ${rating} збережено для "${
+					movieDb.title
+				} (${releaseDateToYear(movieDb.releaseDate)})"</strong>`
 			)
 		}
 
