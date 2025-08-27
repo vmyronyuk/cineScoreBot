@@ -1,22 +1,19 @@
-import { Context, Markup } from 'telegraf'
-import { TMDB_API_KEY } from '../../bot'
+import { Context } from 'telegraf'
 import { saveMovie } from '../../services/moviesService'
 import { TMDBMovie } from '../../types/movies'
 import { replyHTML } from '../../utils/replyHTML'
+import { buildTMDBUrl } from '../../utils/tmdb/buildTmdbUrl'
 
 export async function randomCommandHandler(ctx: Context) {
 	try {
 		const randomPage = Math.floor(Math.random() * 500) + 1
 
-		const url = new URL('https://api.themoviedb.org/3/discover/movie')
-		url.search = new URLSearchParams({
-			api_key: TMDB_API_KEY,
+		const url = buildTMDBUrl('discover/movie', {
 			page: String(randomPage),
-			language: 'uk-UA',
 			sort_by: 'popularity.desc',
-			'vote_average.gte': '6',
+			'vote_average.gte': '7',
 			'vote_count.gte': '100',
-		}).toString()
+		})
 
 		const res = await fetch(url.toString())
 
@@ -42,16 +39,20 @@ export async function randomCommandHandler(ctx: Context) {
 			await ctx.replyWithPhoto(posterUrl, {
 				caption: message,
 				parse_mode: 'HTML',
-				reply_markup: Markup.inlineKeyboard([
-					Markup.button.switchToChat('🔗 Поділитись', movieTitle),
-				]).reply_markup,
+				reply_markup: {
+					inline_keyboard: [
+						[{ text: '🔄 Інший фільм', callback_data: 'random_movie' }],
+					],
+				},
 			})
 		} else {
 			await ctx.reply(message, {
 				parse_mode: 'HTML',
-				reply_markup: Markup.inlineKeyboard([
-					Markup.button.switchToChat('🔗 Поділитись', movieTitle),
-				]).reply_markup,
+				reply_markup: {
+					inline_keyboard: [
+						[{ text: '🔄 Інший фільм', callback_data: 'random_movie' }],
+					],
+				},
 			})
 		}
 

@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import { Telegraf } from 'telegraf'
 import { registerRateAction } from './commands/addRating/actions/registerRateAction'
 import { addRatingCommandHandler } from './commands/addRating/addRatingCommandHandler'
+import { registerRandomAction } from './commands/random/actions/registerRandomAction'
 import { randomCommandHandler } from './commands/random/randomCommandHandler'
 
 dotenv.config()
@@ -15,5 +16,6 @@ bot.command('addRating', addRatingCommandHandler)
 registerRateAction(bot)
 
 bot.command('random', randomCommandHandler)
+registerRandomAction(bot)
 
 bot.launch()
