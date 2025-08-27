@@ -4,8 +4,8 @@ import { getMovieByTitle } from '../../services/moviesService'
 import { createUserIfNotExist } from '../../services/userService'
 import { TMDBMovie } from '../../types/movies'
 import { getTextFromMessage } from '../../utils/getTextFromMessage'
-import { releaseDateToYear } from '../../utils/releaseDateToYear'
 import { replyHTML } from '../../utils/replyHTML'
+import { releaseDateToYear } from '../../utils/tmdb/releaseDateToYear'
 
 export async function addRatingCommandHandler(ctx: Context) {
 	const TMDB_API_KEY = process.env.TMDB_API_KEY!

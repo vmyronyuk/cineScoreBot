@@ -1,5 +1,5 @@
 import { supabase } from '../config/supabase'
-import { Movie } from '../types/movies'
+import { Movie, TMDBMovie } from '../types/movies'
 
 export async function getMovieByTitle(
 	title: Movie['title']
@@ -16,4 +16,20 @@ export async function getMovieByTitle(
 	}
 
 	return movie
+}
+
+export async function saveMovie(movie: TMDBMovie) {
+	const { data: newMovie } = await supabase
+		.from('movies')
+		.insert({
+			tmdbId: movie.id,
+			title: movie.title,
+			overview: movie.overview,
+			releaseDate: movie.release_date,
+			posterUrl: movie.poster_path,
+		})
+		.select('*')
+		.single()
+
+	return newMovie
 }
