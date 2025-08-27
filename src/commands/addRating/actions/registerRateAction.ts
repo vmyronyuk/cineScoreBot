@@ -11,7 +11,7 @@ export function registerRateAction(bot: Telegraf<Context<Update>>) {
 		const userId = ctx.from?.id
 
 		try {
-			let { data: movie, error } = await supabase
+			let { data: movie } = await supabase
 				.from('movies')
 				.select('*')
 				.eq('tmdbId', tmdbId)

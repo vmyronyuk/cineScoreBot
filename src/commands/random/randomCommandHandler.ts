@@ -6,12 +6,12 @@ import { buildTMDBUrl } from '../../utils/tmdb/buildTmdbUrl'
 
 export async function randomCommandHandler(ctx: Context) {
 	try {
-		const randomPage = Math.floor(Math.random() * 500) + 1
+		const randomPage = Math.floor(Math.random() * 350) + 1
 
 		const url = buildTMDBUrl('discover/movie', {
 			page: String(randomPage),
 			sort_by: 'popularity.desc',
-			'vote_average.gte': '7',
+			'vote_average.gte': '6',
 			'vote_count.gte': '100',
 		})
 
