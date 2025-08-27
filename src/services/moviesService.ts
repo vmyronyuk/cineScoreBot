@@ -27,6 +27,7 @@ export async function saveMovie(movie: TMDBMovie) {
 			overview: movie.overview,
 			releaseDate: movie.release_date,
 			posterUrl: movie.poster_path,
+			runtime: movie.runtime,
 		})
 		.select('*')
 		.single()

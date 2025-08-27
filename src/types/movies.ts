@@ -5,6 +5,7 @@ export type TMDBMovie = {
 	poster_path: string
 	title: string
 	release_date: string
+	runtime: number
 }
 
 export type Movie = {
@@ -16,5 +17,6 @@ export type Movie = {
 	posterUrl: string
 	voteAvg: number
 	voteCount: number
+	runtime: number
 	createdAt: Date
 }
