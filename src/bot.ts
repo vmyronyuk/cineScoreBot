@@ -4,6 +4,7 @@ import { registerRateAction } from './commands/addRating/actions/registerRateAct
 import { addRatingCommandHandler } from './commands/addRating/addRatingCommandHandler'
 import { registerRandomAction } from './commands/random/actions/registerRandomAction'
 import { randomCommandHandler } from './commands/random/randomCommandHandler'
+import { statsCommandHandler } from './commands/stats/statsCommandHandler'
 
 dotenv.config()
 
@@ -17,5 +18,7 @@ registerRateAction(bot)
 
 bot.command('random', randomCommandHandler)
 registerRandomAction(bot)
+
+bot.command('stats', statsCommandHandler)
 
 bot.launch()
