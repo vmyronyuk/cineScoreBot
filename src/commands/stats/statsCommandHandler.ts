@@ -15,6 +15,10 @@ export async function statsCommandHandler(ctx: Context) {
 				userStats.numberOfRatings
 			}</strong>\n⭐️ Середня оцінка: <strong>${
 				userStats.avgRating
+			}</strong>\n🏆Найвища оцінка: <strong>${
+				userStats.mostRatedMovieTitle
+			}</strong>\n🤮 Найнижча оцінка: <strong>${
+				userStats.lowestRatedMovieTitle
 			}</strong>\n⏳ Загальна тривалість перегляду: <strong>${formatRuntime(
 				userStats.totalWatchTime as number
 			)}</strong>`
