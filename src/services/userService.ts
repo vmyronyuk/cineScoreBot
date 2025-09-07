@@ -75,3 +75,19 @@ export async function getUserStats(userId: number) {
 		lowestRatedMovieTitle,
 	}
 }
+
+export async function getUserMovies(userId: number) {
+	const { data, error } = await supabase
+		.from('user_ratings')
+		.select(`userId, rating, movies (title, releaseDate)`)
+		.eq('userId', userId)
+
+	if (error || !data) {
+		return []
+	}
+
+	return data.map((r: any) => ({
+		...r,
+		movie: Array.isArray(r.movies) ? r.movies[0] : r.movies,
+	}))
+}
