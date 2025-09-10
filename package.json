@@ -12,6 +12,7 @@
 	"description": "",
 	"dependencies": {
 		"@supabase/supabase-js": "^2.56.0",
+		"@vercel/node": "^5.3.21",
 		"dotenv": "^17.2.1",
 		"telegraf": "^4.16.3"
 	},
