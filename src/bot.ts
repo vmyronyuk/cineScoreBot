@@ -5,6 +5,7 @@ import { addRatingCommandHandler } from './commands/addRating/addRatingCommandHa
 import { registerRandomAction } from './commands/random/actions/registerRandomAction'
 import { randomCommandHandler } from './commands/random/randomCommandHandler'
 import { statsCommandHandler } from './commands/stats/statsCommandHandler'
+import { mytopCommandHandler } from './commands/top/mytopCommandHandler'
 import { topCommandHandler } from './commands/top/topCommandHandler'
 
 dotenv.config()
@@ -23,5 +24,6 @@ registerRandomAction(bot)
 bot.command('stats', statsCommandHandler)
 
 bot.command('top', topCommandHandler)
+bot.command('mytop', mytopCommandHandler)
 
 bot.launch()
