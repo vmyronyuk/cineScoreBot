@@ -2,6 +2,8 @@ import dotenv from 'dotenv'
 import { Telegraf } from 'telegraf'
 import { registerRateAction } from './commands/addRating/actions/registerRateAction'
 import { addRatingCommandHandler } from './commands/addRating/addRatingCommandHandler'
+import { registerMovieAction } from './commands/movie/actions/registerMovieAction'
+import { movieCommandHandler } from './commands/movie/movieCommandHandler'
 import { registerRandomAction } from './commands/random/actions/registerRandomAction'
 import { randomCommandHandler } from './commands/random/randomCommandHandler'
 import { statsCommandHandler } from './commands/stats/statsCommandHandler'
@@ -25,5 +27,8 @@ bot.command('stats', statsCommandHandler)
 
 bot.command('top', topCommandHandler)
 bot.command('mytop', mytopCommandHandler)
+
+bot.command('movie', movieCommandHandler)
+registerMovieAction(bot)
 
 bot.launch()
