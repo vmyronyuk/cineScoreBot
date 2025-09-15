@@ -10,6 +10,8 @@ export function registerRateAction(bot: Telegraf<Context<Update>>) {
 		const rating = parseFloat(ctx.match[2])
 		const userId = ctx.from?.id
 
+		await ctx.answerCbQuery('Зберігаю рейтинг…', { show_alert: false })
+
 		try {
 			let { data: movie } = await supabase
 				.from('movies')
@@ -34,9 +36,9 @@ export function registerRateAction(bot: Telegraf<Context<Update>>) {
 				rating,
 			})
 
-			await ctx.editMessageText(
-				`✅ Рейтинг ${rating} збережено для "${movie.title}"`
-			)
+			await ctx
+				.editMessageText(`✅ Рейтинг ${rating} збережено для "${movie.title}"`)
+				.catch(() => {})
 		} catch (error) {
 			console.error(error)
 			await ctx.answerCbQuery('❌ Помилка при збереженні рейтингу', {
