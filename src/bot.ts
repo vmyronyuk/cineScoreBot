@@ -30,5 +30,3 @@ bot.command('mytop', mytopCommandHandler)
 
 bot.command('movie', movieCommandHandler)
 registerMovieAction(bot)
-
-bot.launch()
