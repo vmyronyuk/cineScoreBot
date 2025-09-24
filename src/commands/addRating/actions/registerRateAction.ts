@@ -51,7 +51,11 @@ export function registerRateAction(bot: Telegraf<Context<Update>>) {
 				rating,
 			})
 
-			await ctx.reply(`✅ Рейтинг ${rating} збережено для «${movie.title}»`)
+			await ctx
+				.editMessageText(`✅ Рейтинг ${rating} збережено для «${movie.title}»`)
+				.catch(() =>
+					ctx.reply(`✅ Рейтинг ${rating} збережено для «${movie.title}»`)
+				)
 		} catch (error) {
 			console.error(error)
 			await ctx.answerCbQuery('❌ Помилка при збереженні рейтингу', {
